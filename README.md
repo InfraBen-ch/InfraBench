@@ -16,11 +16,15 @@
 </p>
 
 <p align="center">
-  <a href="https://infraben.ch/"><strong>Leaderboard</strong></a>
+  <a href="https://infraben.ch/leaderboard"><strong>Leaderboard</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://infraben.ch/docs"><strong>Docs</strong></a>
   &nbsp;·&nbsp;
   <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf"><strong>Paper (PDF)</strong></a>
   &nbsp;·&nbsp;
   <a href="https://hotinfra.org/2026/"><strong>HotInfra '26</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://huggingface.co/InfraBench"><strong>Hugging Face</strong></a>
   &nbsp;·&nbsp;
   <a href="https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en"><strong>Scholar</strong></a>
   &nbsp;·&nbsp;
@@ -83,7 +87,7 @@ End-to-end runs use **Syscraft** (provisioning, fault scenarios, agent adapters)
 
 - Treat these tasks as **layout + verifier references** today.
 - `hello-world` is the on-ramp for a future lightweight Docker runner.
-- Need eval access? [Open an issue](https://github.com/XuanmiaoG/InfraBench/issues) or contact the authors via the paper / Scholar.
+- Need eval access? [Open an issue](https://github.com/InfraBen-ch/InfraBench/issues) or contact the authors via the paper / Scholar.
 
 ```
 InfraBench/
@@ -119,16 +123,28 @@ InfraBench/
 - **Compute:** [CloudLab](https://www.cloudlab.us/)
 - **API credits:** [Google Gemini Academic Program](https://ai.google.dev/gemini-api/docs/gemini-for-research)
 
+## Announcements
+
+- [Beyond Pass/Fail — InfraBench paper announcement](https://www.linkedin.com/posts/yuangao31_beyond-passfail-evaluating-infrastructure-share-7484159556533637120-vfNm)
+- [InfraBench receives Google Gemini Academic Program support](https://www.linkedin.com/posts/yuangao31_google-geminiacademicaward-googlecloud-share-7484220634017726464-lzL-)
+- [Your AI Agent Passed SWE-bench. It Would Still Take Down Production.](https://medium.com/@gaoy31/your-ai-agent-passed-swe-bench-it-would-still-take-down-production-f1235315f112) (Medium)
+
 ---
 
 <p align="center">
   <a href="https://infraben.ch/">Site</a>
   ·
+  <a href="https://infraben.ch/leaderboard">Leaderboard</a>
+  ·
   <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf">Paper</a>
   ·
   <a href="https://hotinfra.org/2026/">HotInfra</a>
   ·
+  <a href="https://huggingface.co/InfraBench">Hugging Face</a>
+  ·
   <a href="https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en">Scholar</a>
+  ·
+  <a href="https://www.linkedin.com/in/yuangao31">LinkedIn</a>
   ·
   <a href="CONTRIBUTING.md">Contribute</a>
   ·

@@ -1,6 +1,6 @@
 # InfraBench
 
-> InfraBench evaluates AI agents on realistic infrastructure incidents across the full stack and operational lifecycle — durability, invariants, cleanup, and risk — not just binary pass/fail.
+> InfraBench is the benchmark for infrastructure agents. It evaluates AI agents on realistic infrastructure incidents across the full stack and operational lifecycle — durability, invariants, cleanup, and risk — not just binary pass/fail. Published at HotInfra '26 (co-located with ISCA '26).
 
 ## Docs
 
@@ -11,11 +11,17 @@
 - [Contribute](https://infraben.ch/docs/contribute): How to contribute task packages
 - [Submit a task](https://infraben.ch/docs/submit-task): Task layout and PR checklist
 - [Paper (PDF)](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf)
-- [GitHub](https://github.com/XuanmiaoG/InfraBench)
+- [GitHub](https://github.com/InfraBen-ch/InfraBench)
 - [Hugging Face org](https://huggingface.co/InfraBench)
+
+## Announcements
+
+- [Paper announcement (LinkedIn)](https://www.linkedin.com/posts/yuangao31_beyond-passfail-evaluating-infrastructure-share-7484159556533637120-vfNm): Beyond Pass/Fail — InfraBench paper announcement
+- [Google Gemini Academic Award (LinkedIn)](https://www.linkedin.com/posts/yuangao31_google-geminiacademicaward-googlecloud-share-7484220634017726464-lzL-): Gemini Academic Program support for research evaluation
 
 ## Optional
 
 - [Medium essay](https://medium.com/@gaoy31/your-ai-agent-passed-swe-bench-it-would-still-take-down-production-f1235315f112): Your AI Agent Passed SWE-bench. It Would Still Take Down Production.
 - [HotInfra 2026](https://hotinfra.org/2026/): Workshop page (co-located with ISCA '26)
 - [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en): Lead author publication profile
+- [LinkedIn (Yuan Gao)](https://www.linkedin.com/in/yuangao31): Lead author professional profile and project updates
