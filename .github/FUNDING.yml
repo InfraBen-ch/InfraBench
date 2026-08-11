@@ -1,0 +1,7 @@
+# Adds the "Sponsor" button to this repository.
+# Docs: https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+#
+# Requires GitHub Sponsors to be enabled for the InfraBen-ch organization
+# (https://github.com/sponsors) — until then the button will not render.
+
+github: [InfraBen-ch]
