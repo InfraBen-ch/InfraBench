@@ -10,7 +10,9 @@
 - [Introduction](https://infraben.ch/docs/introduction): What InfraBench evaluates
 - [Contribute](https://infraben.ch/docs/contribute): How to contribute task packages
 - [Submit a task](https://infraben.ch/docs/submit-task): Task layout and PR checklist
-- [Paper (PDF)](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf)
+- [Paper — arXiv:2608.11234](https://arxiv.org/abs/2608.11234): InfraBench: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk
+- [Paper PDF](https://arxiv.org/pdf/2608.11234)
+- [Paper full text (HTML)](https://arxiv.org/html/2608.11234v1)
 - [GitHub](https://github.com/InfraBen-ch/InfraBench)
 - [Hugging Face org](https://huggingface.co/InfraBench)
 

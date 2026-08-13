@@ -20,7 +20,7 @@
   &nbsp;·&nbsp;
   <a href="https://infraben.ch/docs"><strong>Docs</strong></a>
   &nbsp;·&nbsp;
-  <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf"><strong>Paper (PDF)</strong></a>
+  <a href="https://arxiv.org/abs/2608.11234"><strong>arXiv</strong></a>
   &nbsp;·&nbsp;
   <a href="https://hotinfra.org/2026/"><strong>HotInfra '26</strong></a>
   &nbsp;·&nbsp;
@@ -35,7 +35,7 @@
 
 **InfraBench** evaluates AI agents on realistic infrastructure incidents across the full stack (L1 hardware → L4 applications) and the operational lifecycle — durability, invariants, cleanup, and risk — not just binary pass/fail.
 
-Paper: *[Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf)* · HotInfra '26 (co-located with ISCA '26)
+Paper: *[InfraBench: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk](https://arxiv.org/abs/2608.11234)* — **arXiv:2608.11234** · HotInfra '26 (co-located with ISCA '26)
 
 <p align="center">
   <img
@@ -104,16 +104,19 @@ InfraBench/
 
 ```bibtex
 @inproceedings{gao2026infrabench,
-  title     = {Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk},
+  title     = {InfraBench: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk},
   author    = {Gao, Yuan and Yang, Zeren and Li, Junnan and Zhong, Shawn (Wanxiang) and Dajani, Ahmed and Zheng, Mai and Arpaci-Dusseau, Andrea and Arpaci-Dusseau, Remzi},
   booktitle = {Workshop on Hot Topics in System Infrastructure (HotInfra)},
   year      = {2026},
   note      = {Co-located with ISCA '26},
-  url       = {https://hotinfra.org/2026/papers/hotinfra26-final71.pdf}
+  url       = {https://arxiv.org/abs/2608.11234},
+  eprint    = {2608.11234},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI}
 }
 ```
 
-[Project site](https://infraben.ch/) · [PDF](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf) · [HotInfra '26](https://hotinfra.org/2026/) · [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en)
+[Project site](https://infraben.ch/) · [arXiv](https://arxiv.org/abs/2608.11234) · [PDF](https://arxiv.org/pdf/2608.11234) · [HotInfra '26](https://hotinfra.org/2026/) · [Google Scholar (Yuan Gao)](https://scholar.google.com/citations?user=oD9j2NMAAAAJ&hl=en)
 
 ---
 
@@ -136,7 +139,7 @@ InfraBench/
   ·
   <a href="https://infraben.ch/leaderboard">Leaderboard</a>
   ·
-  <a href="https://hotinfra.org/2026/papers/hotinfra26-final71.pdf">Paper</a>
+  <a href="https://arxiv.org/abs/2608.11234">arXiv</a>
   ·
   <a href="https://hotinfra.org/2026/">HotInfra</a>
   ·
