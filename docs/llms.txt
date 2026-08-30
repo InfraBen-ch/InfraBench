@@ -12,7 +12,10 @@ Twelve seed tasks span hardware (L1), local systems (L2), distributed systems (L
 - [Introduction](https://infraben.ch/docs/introduction): What InfraBench evaluates and how scoring works
 - [Contribute](https://infraben.ch/docs/contribute): How to contribute task packages
 - [Submit a task](https://infraben.ch/docs/submit-task): Task layout, verifier contract, PR checklist
-- [Paper (PDF)](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf): Beyond Pass/Fail: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk
+- [Paper — arXiv:2608.11234](https://arxiv.org/abs/2608.11234): InfraBench: Evaluating Infrastructure Agents Across Layers, Lifecycle, and Risk (canonical citable version)
+- [Paper PDF](https://arxiv.org/pdf/2608.11234): Direct PDF via arXiv
+- [Paper full text (HTML)](https://arxiv.org/html/2608.11234v2): Crawlable HTML rendering of the full paper
+- [HotInfra '26 camera-ready](https://hotinfra.org/2026/papers/hotinfra26-final71.pdf): Workshop version of the paper
 - [HotInfra 2026](https://hotinfra.org/2026/): Workshop page (co-located with ISCA '26)
 - [GitHub repository](https://github.com/XuanmiaoG/InfraBench): Public task packages and project source surface
 - [Contributing guide (GitHub)](https://github.com/XuanmiaoG/InfraBench/blob/main/CONTRIBUTING.md): Authoritative task-package source text
