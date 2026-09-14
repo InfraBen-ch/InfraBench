@@ -122,7 +122,7 @@ InfraBench/
 
 ## Acknowledgments
 
-- **Task interviews:** [CHTC](https://chtc.cs.wisc.edu/) · [DoIT](https://it.wisc.edu/about/division-of-information-technology/) · [ARA Wireless Living Lab](https://arawireless.org/)
+- **Task interviews:** [CHTC](https://chtc.cs.wisc.edu/) · [DoIT](https://it.wisc.edu/about/division-of-information-technology/) · [CDIS IT](https://csl.cs.wisc.edu/) · [ARA Wireless Living Lab](https://arawireless.org/)
 - **Compute:** [CloudLab](https://www.cloudlab.us/)
 - **API credits:** [Google Gemini Academic Program](https://ai.google.dev/gemini-api/docs/gemini-for-research)
 

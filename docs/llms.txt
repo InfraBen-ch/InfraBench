@@ -30,4 +30,5 @@ Twelve seed tasks span hardware (L1), local systems (L2), distributed systems (L
 - [CloudLab](https://www.cloudlab.us/): Compute testbed used for experiments
 - [CHTC](https://chtc.cs.wisc.edu/): Task interview partner
 - [UW–Madison DoIT](https://it.wisc.edu/about/division-of-information-technology/): Task interview partner
+- [CDIS IT](https://csl.cs.wisc.edu/): Task interview partner
 - [ARA Wireless Living Lab](https://arawireless.org/): Task interview partner
