@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://infraben.ch/">
     <img
-      src="docs/assets/readme-hero.png"
+      src=".github/assets/readme-hero.png"
       alt="InfraBench — A benchmark for infrastructure agents (HotInfra '26)"
       width="100%"
     />
@@ -39,7 +39,7 @@ Paper: *[InfraBench: Evaluating Infrastructure Agents Across Layers, Lifecycle, 
 
 <p align="center">
   <img
-    src="docs/assets/readme-compare.png"
+    src=".github/assets/readme-compare.png"
     alt="Typical agent benches stop at pass/fail; InfraBench scores layers, lifecycle, and risk"
     width="100%"
   />
