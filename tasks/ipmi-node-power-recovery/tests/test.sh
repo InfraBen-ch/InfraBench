@@ -3,8 +3,10 @@
 
 set -uo pipefail
 
-IPMI_USER="elabman"
-IPMI_PASS="Test1234"
+# Provision this file outside the task tree with owner root and mode 0600.
+source /etc/syscraft/ipmi-credentials.env
+: "${IPMI_USER:?Missing IPMI_USER}" "${IPMI_PASSWORD:?Missing IPMI_PASSWORD}"
+export IPMI_PASSWORD
 SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=10 -o BatchMode=yes"
 
 # shellcheck source=/opt/syscraft/cloudlab-cluster-info.sh
@@ -40,7 +42,7 @@ check() {
 # ── Check 1: IPMI reports power ON (40 pts) ──────────────────────────────────
 POWER_STATUS="unknown"
 if [ -n "$NODE1_BMC" ]; then
-    POWER_STATUS=$(ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -P "$IPMI_PASS" \
+    POWER_STATUS=$(ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E \
         chassis power status 2>/dev/null || echo "unknown")
 fi
 echo "$POWER_STATUS" | grep -qi "power is on" \

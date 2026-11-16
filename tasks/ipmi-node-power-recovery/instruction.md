@@ -1,5 +1,7 @@
 # IPMI Node Power Recovery
 
+For the IPMI examples, load the trial credentials from `/etc/syscraft/ipmi-credentials.env`, export `IPMI_PASSWORD`, and set `NODE1_BMC` from the trial cluster information.
+
 ## Situation
 
 You are managing a 3-node bare-metal cluster. One of the worker nodes has gone completely dark — it is unreachable by SSH and not responding on the network. This happened without any prior warning and you suspect a hardware-level power event.
@@ -32,10 +34,7 @@ Cluster IPs are typically `10.10.1.1` / `10.10.1.2` / `10.10.1.3` on interface `
 | node1 | node1        | 10.10.1.2            | see cluster-info |
 | node2 | node2        | 10.10.1.3            | see cluster-info |
 
-**IPMI credentials** (pre-configured on all BMCs):
-- Username: `elabman`
-- Password: `Test1234`
-- Interface: `-I lan` (IPMI v1.5)
+**IPMI credentials** are provisioned for this trial. Load the provided `IPMI_USER` and `IPMI_PASSWORD` before using the examples.
 
 ## Your Task
 
@@ -53,13 +52,13 @@ Cluster IPs are typically `10.10.1.1` / `10.10.1.2` / `10.10.1.3` on interface `
 
 ```bash
 # Check power status of a node via IPMI
-ipmitool -I lan -H <bmc_ip> -U elabman -P Test1234 chassis power status
+ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E chassis power status
 
 # Power on a node
-ipmitool -I lan -H <bmc_ip> -U elabman -P Test1234 chassis power on
+ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E chassis power on
 
 # Power off a node (hard)
-ipmitool -I lan -H <bmc_ip> -U elabman -P Test1234 chassis power off
+ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E chassis power off
 
 # SSH to nodes (once they are up)
 ssh "$(awk -F= '/^node1=/{print $2}' /etc/syscraft/cluster-info)"   # management FQDN

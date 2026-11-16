@@ -1,0 +1,83 @@
+[task]
+name = "example/vm-cassandra-cords-propagation"
+version = "0.1.0"
+
+[metadata]
+author_name = "Yuan Gao"
+author_organization = "University of Wisconsin - Madison"
+
+difficulty = "hard"
+difficulty_explanation = """\
+CORDS-inspired storage/data corruption task: bootstrap generates per-run ledger \
+payload tokens, silently mutates three affected rows at the SSTable layer, and \
+drives Cassandra read repair so one bad value propagates while another remains \
+partially divergent. The cluster stays outwardly healthy, so agents must diagnose \
+with Cassandra tools, CQL, logs, and replica state instead of following exposed \
+literal string hints. Verifier uses strict binary reward across live read-path, \
+durability, and side-effect gates.\
+"""
+
+solution_explanation = """\
+Iterative diagnosis: confirm CQL and ring health on all nodes, compare affected \
+ledger rows through per-node and quorum/all reads, restore only the bad semantic \
+rows at CL=ALL, then flush and compact every replica. A successful fix preserves \
+unrelated rows and their write times while removing stale corrupted row versions \
+from compacted on-disk state.\
+"""
+
+verification_explanation = """\
+Binary reward. Gates: all three nodes are CQL-reachable and Up/Normal; every \
+affected account returns the expected balance and audit digest through per-node \
+CL=ONE and cluster QUORUM/ALL reads; a fresh verifier write survives CL=ALL, \
+flush, and per-node readback; flush/compact leaves no stale corrupted affected \
+row version in SSTable state; sampled unrelated rows and protected write times \
+are preserved; the affected read-path checks still pass after a delayed \
+revalidation.\
+"""
+
+category = "systems_administration"
+tags = [
+    "cassandra",
+    "distributed-storage",
+    "linux",
+    "replication",
+    "read-repair",
+    "silent-corruption",
+    "debugging",
+    "cords-inspired",
+]
+expert_time_estimate_hours = 1.75
+
+# Paper alignment: explicitly models “silent divergence + read-repair propagation +
+# misleading health,” inspired by latent storage-fault / propagation discussions
+# (CORDS, FAST 2017 lineage). Agent benchmark only.
+
+[environment]
+type = "vm-cluster"
+vm_backend = "libvirt"
+base_image = "ubuntu-24.04"
+network = "192.168.100.0/24"
+
+[[environment.nodes]]
+name = "node0"
+cpus = 2
+memory_mb = 8192
+storage_mb = 20480
+
+[[environment.nodes]]
+name = "node1"
+cpus = 2
+memory_mb = 8192
+storage_mb = 20480
+
+[[environment.nodes]]
+name = "node2"
+cpus = 2
+memory_mb = 8192
+storage_mb = 20480
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 180

@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "task": "vm-pelican-namespace-key-mismatch",
+    "format": "list",
+    "formula": "w = (1 - pass_rate) + eps",
+    "eps": 0.1,
+    "generated_from": "runs/_3pass_index/check_stats.json",
+    "note": "id keys: pytest=test fn, dict=check key, list=s<i> (i-th scored check), points=p<i> (i-th judge item). Weights are relative; partial = sum(w*passed)/sum(w) over these checks."
+  },
+  "checks": {
+    "s0": {
+      "weight": 0.1,
+      "pass_rate": 1.0,
+      "n": 24,
+      "label": "namespace approval exists for /syscraft/public"
+    },
+    "s1": {
+      "weight": 0.1417,
+      "pass_rate": 0.9583,
+      "n": 24,
+      "label": "Registry namespace approval matches the active Origin issuer JWKS"
+    },
+    "s2": {
+      "weight": 0.1,
+      "pass_rate": 1.0,
+      "n": 24,
+      "label": "Origin is still using the rebuilt host key, not the pre-incident stale key"
+    },
+    "s3": {
+      "weight": 1.0583,
+      "pass_rate": 0.0417,
+      "n": 24,
+      "label": "federation incident log has no remaining key-mismatch marker"
+    },
+    "s4": {
+      "weight": 0.1,
+      "pass_rate": 1.0,
+      "n": 24,
+      "label": "recent Origin logs do not show namespace key-mismatch failures"
+    },
+    "s5": {
+      "weight": 0.1,
+      "pass_rate": 1.0,
+      "n": 24,
+      "label": "recent Cache logs do not show namespace key-mismatch failures"
+    },
+    "s6": {
+      "weight": 0.1,
+      "pass_rate": 1.0,
+      "n": 24,
+      "label": "no obvious plain HTTP/file-server bypass is listening on node2"
+    },
+    "s7": {
+      "weight": 0.1417,
+      "pass_rate": 0.9583,
+      "n": 24,
+      "label": "client retrieved the object through the Pelican federation path"
+    },
+    "s8": {
+      "weight": 0.1417,
+      "pass_rate": 0.9583,
+      "n": 24,
+      "label": "retrieved object checksum matches expected hidden value"
+    },
+    "s9": {
+      "weight": 0.1417,
+      "pass_rate": 0.9583,
+      "n": 24,
+      "label": "retrieved object content matches expected dataset"
+    }
+  }
+}

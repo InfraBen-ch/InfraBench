@@ -10,8 +10,11 @@ NODE1_IP="10.10.1.2"
 NODE2_IP="10.10.1.3"
 CLUSTER_NIC="enp6s0f1"
 
-NODE1_HOST="c220g1-030819.wisc.cloudlab.us"
-NODE2_HOST="c220g1-030820.wisc.cloudlab.us"
+source /opt/syscraft/cloudlab-cluster-info.sh
+NODE1_HOST="$(syscraft_node_host node1)"
+: "${NODE1_HOST:?Missing node1 management host}"
+NODE2_HOST="$(syscraft_node_host node2)"
+: "${NODE2_HOST:?Missing node2 management host}"
 
 SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=15 -o BatchMode=yes"
 

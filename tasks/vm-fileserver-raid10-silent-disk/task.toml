@@ -1,0 +1,86 @@
+[task]
+name = "example/vm-fileserver-raid10-silent-disk"
+version = "0.1.0"
+
+[metadata]
+author_name = "Syscraft Team"
+author_organization = "University of Wisconsin - Madison"
+
+difficulty = "hard"
+difficulty_explanation = """\
+A 4-disk mdadm RAID10 backing an NFS fileserver (mirroring the AFS RAID10 \
+layout used elsewhere in the CDIS environment) is silently degraded. One of \
+the four members has been wrapped in a device-mapper layer that adds large \
+read-latency without producing I/O errors, so mdadm still reports clean and \
+sees no failed devices. Single ls/cat operations look healthy, but sustained \
+concurrent reads through NFS show very high p95 latency. A boot-time \
+assemble script re-establishes the degraded device-mapper layer on every \
+boot, so any in-place workaround that does not edit the script regresses on \
+reboot. Agents must identify the slow member by latency probing rather than \
+mdadm errors, replace it with a clean device, and make the fix survive a \
+reboot.\
+"""
+
+solution_explanation = """\
+The reference recovery times reads against each of the four /dev/mapper/disk* \
+members directly to identify the slow one, fails and removes it from the \
+array, recreates that mapper target as a plain dm-linear pass-through, edits \
+/usr/local/sbin/syscraft-assemble-raid to drop the dm-delay wrapper, re-adds \
+the device to the array, and waits for resync. NFS continues serving from \
+/srv/storage on /dev/md0 throughout.\
+"""
+
+verification_explanation = """\
+Binary reward. The verifier checks NFS reachability and baseline data \
+checksums, runs a concurrent NFS read workload measuring p95 latency, checks \
+mdadm reports raid10 with 4 active / 0 failed devices, confirms no dm-delay \
+target remains under the array, reboots the fileserver, and re-runs the same \
+checks. It rejects shortcuts like changing the RAID level, moving NFS off \
+/dev/md0, or rsyncing the data to a non-RAID path. It emits a scored partial \
+over the two repair-progress checks that nop fails: dm-delay removed before \
+reboot and dm-delay absent after reboot.\
+"""
+
+category = "systems_administration"
+tags = [
+    "storage",
+    "mdadm",
+    "raid10",
+    "device-mapper",
+    "silent-failure",
+    "nfs",
+    "afs-layout",
+    "restart-persistence",
+    "long-term",
+    "distributed-systems",
+    "vm-cluster",
+    "linux",
+    "debugging",
+]
+expert_time_estimate_hours = 1.0
+
+[environment]
+type = "vm-cluster"
+vm_backend = "libvirt"
+base_image = "ubuntu-24.04"
+network = "192.168.100.0/24"
+
+[[environment.nodes]]
+name = "node0"
+cpus = 2
+memory_mb = 3072
+storage_mb = 16384
+roles = ["ops"]
+
+[[environment.nodes]]
+name = "node1"
+cpus = 2
+memory_mb = 4096
+storage_mb = 20480
+roles = ["fileserver"]
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600

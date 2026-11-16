@@ -6,7 +6,9 @@ set -uo pipefail
 
 NODE0="10.10.1.1"
 NODE2="10.10.1.3"
-NODE2_HOST="c220g1-030820.wisc.cloudlab.us"
+source /opt/syscraft/cloudlab-cluster-info.sh
+NODE2_HOST="$(syscraft_node_host node2)"
+: "${NODE2_HOST:?Missing node2 management host}"
 SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=10 -o BatchMode=yes"
 
 mkdir -p /logs/verifier

@@ -1,5 +1,7 @@
 # Reference Solution
 
+For the IPMI examples, load the trial credentials from `/etc/syscraft/ipmi-credentials.env`, export `IPMI_PASSWORD`, and set `NODE1_BMC` from the trial cluster information.
+
 ## Step 1 — Identify which node is down
 
 ```bash
@@ -7,14 +9,14 @@
 ssh node1-mgmt   # → Connection refused or timeout → node1 is down
 
 # Confirm via IPMI
-ipmitool -I lan -H 10.134.9.223 -U elabman -P Test1234 chassis power status
+ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E chassis power status
 # → Chassis Power is off
 ```
 
 ## Step 2 — Power on node1 via IPMI
 
 ```bash
-ipmitool -I lan -H 10.134.9.223 -U elabman -P Test1234 chassis power on
+ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E chassis power on
 # → Chassis Power Control: Up/On
 ```
 
@@ -35,7 +37,7 @@ echo "node1 is up"
 ssh node1-mgmt "uptime"
 # → up N minutes (short uptime confirms fresh boot)
 
-ipmitool -I lan -H 10.134.9.223 -U elabman -P Test1234 chassis power status
+ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E chassis power status
 # → Chassis Power is on
 ```
 

@@ -1,0 +1,84 @@
+[task]
+name = "example/vm-pelican-namespace-key-mismatch"
+version = "0.1.0"
+
+[metadata]
+author_name = "Junnan Li"
+author_organization = "University of Wisconsin - Madison"
+
+difficulty = "hard"
+difficulty_explanation = """\
+Private Pelican federations have several independent control planes: Registry \
+namespace approval, Director routing, Origin issuer identity, Cache behavior, \
+and client discovery. This task injects a realistic Origin host rebuild/key-loss \
+incident where systemd health can remain mostly green while the namespace is no \
+longer trusted by the federation. The agent must reconcile the approved namespace \
+with the active Origin identity and restore reads through Pelican rather than \
+bypassing the federation.\
+"""
+
+solution_explanation = """\
+The reference repair inspects the current Origin issuer key, updates the Registry \
+namespace approval metadata to match that active Origin identity, clears stale \
+Director/Cache routing state, and restarts the Pelican services in dependency \
+order. It then verifies that the known object is retrievable through the Cache \
+and Director path with the original checksum.\
+"""
+
+verification_explanation = """\
+Binary reward plus scored partial credit. The verifier requires real Pelican \
+service units to be active and discovery metadata to be exposed. Repair-progress \
+checks are scored in reward.json: namespace approval exists, the Registry \
+approval matches the active Origin issuer JWKS, the Origin is not rolled back to \
+the pre-incident key, stale incident markers/logs are cleared, no plain HTTP \
+bypass is listening, and the client retrieves the expected object through the \
+Pelican federation path with the hidden checksum and content intact.\
+"""
+
+category = "systems_administration"
+tags = [
+    "pelican",
+    "distributed-systems",
+    "data-federation",
+    "namespace-registry",
+    "cache",
+    "identity",
+    "key-rotation",
+    "vm-cluster",
+    "linux",
+    "debugging",
+]
+expert_time_estimate_hours = 1.5
+
+[environment]
+type = "vm-cluster"
+vm_backend = "libvirt"
+base_image = "ubuntu-24.04"
+network = "192.168.100.0/24"
+
+[[environment.nodes]]
+name = "node0"
+cpus = 2
+memory_mb = 4096
+storage_mb = 30720
+roles = ["pelican-registry", "pelican-director"]
+
+[[environment.nodes]]
+name = "node1"
+cpus = 2
+memory_mb = 4096
+storage_mb = 30720
+roles = ["pelican-origin"]
+
+[[environment.nodes]]
+name = "node2"
+cpus = 2
+memory_mb = 4096
+storage_mb = 30720
+roles = ["pelican-cache", "pelican-client"]
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 240
