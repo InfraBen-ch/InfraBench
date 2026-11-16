@@ -1,0 +1,78 @@
+{
+  "_meta": {
+    "task": "vm-slurm-puppet-unattended-cascade",
+    "format": "list",
+    "formula": "w = (1 - pass_rate) + eps",
+    "eps": 0.1,
+    "generated_from": "runs/_3pass_index/check_stats.json",
+    "note": "id keys: pytest=test fn, dict=check key, list=s<i> (i-th scored check), points=p<i> (i-th judge item). Weights are relative; partial = sum(w*passed)/sum(w) over these checks."
+  },
+  "checks": {
+    "s0": {
+      "weight": 0.2538,
+      "pass_rate": 0.8462,
+      "n": 26,
+      "label": "6-way concurrent srun workload passes baseline"
+    },
+    "s1": {
+      "weight": 0.2538,
+      "pass_rate": 0.8462,
+      "n": 26,
+      "label": "concurrent workload still passes after a forced puppet apply"
+    },
+    "s2": {
+      "weight": 0.2538,
+      "pass_rate": 0.8462,
+      "n": 26,
+      "label": "concurrent workload still passes after compute reboots"
+    },
+    "s3": {
+      "weight": 1.1,
+      "pass_rate": 0.0,
+      "n": 26,
+      "label": "/etc/slurm still has *.dpkg-dist files on node0"
+    },
+    "s4": {
+      "weight": 1.1,
+      "pass_rate": 0.0,
+      "n": 26,
+      "label": "/etc/slurm still has *.dpkg-dist files on node1"
+    },
+    "s5": {
+      "weight": 1.1,
+      "pass_rate": 0.0,
+      "n": 26,
+      "label": "/etc/slurm still has *.dpkg-dist files on node2"
+    },
+    "s6": {
+      "weight": 0.4462,
+      "pass_rate": 0.6538,
+      "n": 26,
+      "label": "MaxJobCount is sane on node0 (unset)"
+    },
+    "s7": {
+      "weight": 0.4846,
+      "pass_rate": 0.6154,
+      "n": 26,
+      "label": "MaxJobCount is sane on node1 (unset)"
+    },
+    "s8": {
+      "weight": 0.4846,
+      "pass_rate": 0.6154,
+      "n": 26,
+      "label": "MaxJobCount is sane on node2 (unset)"
+    },
+    "s9": {
+      "weight": 0.4846,
+      "pass_rate": 0.6154,
+      "n": 26,
+      "label": "slurmd maintenance cgroup drop-in is gone or harmless on node1"
+    },
+    "s10": {
+      "weight": 0.4846,
+      "pass_rate": 0.6154,
+      "n": 26,
+      "label": "slurmd maintenance cgroup drop-in is gone or harmless on node2"
+    }
+  }
+}

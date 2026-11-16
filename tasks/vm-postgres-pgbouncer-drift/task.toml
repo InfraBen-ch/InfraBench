@@ -1,0 +1,80 @@
+[task]
+name = "example/vm-postgres-pgbouncer-drift"
+version = "0.1.0"
+
+[metadata]
+author_name = "Syscraft Team"
+author_organization = "University of Wisconsin - Madison"
+
+difficulty = "hard"
+difficulty_explanation = """\
+A PostgreSQL-backed service can pass short smoke tests while a bad PgBouncer \
+maintenance change remains latent. Existing warm connections and simple health \
+checks work, but a restart re-applies unsafe pooler settings and sustained \
+traffic sees intermittent transaction failures. Agents must repair the durable \
+configuration, remove restart-time maintenance residue, and prove workload \
+stability through PgBouncer rather than bypassing the pooler.\
+"""
+
+solution_explanation = """\
+The reference recovery removes the PgBouncer systemd maintenance drop-in that \
+recreates the bad config, writes safe persistent pooler settings, keeps the app \
+routing through PgBouncer, restarts services, and validates concurrent writes \
+against PostgreSQL.\
+"""
+
+verification_explanation = """\
+Binary reward. The verifier checks service reachability, performs a warm write, \
+restarts PgBouncer and the app to expose non-persistent fixes, verifies bad \
+systemd/config residue is gone, runs concurrent workload through PgBouncer, \
+checks all workload rows exist exactly once with bootstrap data retained, and \
+rejects direct PostgreSQL bypass or destructive database recreation.\
+"""
+
+category = "systems_administration"
+tags = [
+    "postgresql",
+    "pgbouncer",
+    "connection-pooling",
+    "configuration-drift",
+    "restart-persistence",
+    "long-term",
+    "distributed-systems",
+    "vm-cluster",
+    "linux",
+    "debugging",
+]
+expert_time_estimate_hours = 1.0
+
+[environment]
+type = "vm-cluster"
+vm_backend = "libvirt"
+base_image = "ubuntu-24.04"
+network = "192.168.100.0/24"
+
+[[environment.nodes]]
+name = "node0"
+cpus = 2
+memory_mb = 3072
+storage_mb = 16384
+roles = ["app"]
+
+[[environment.nodes]]
+name = "node1"
+cpus = 2
+memory_mb = 3072
+storage_mb = 16384
+roles = ["pgbouncer"]
+
+[[environment.nodes]]
+name = "node2"
+cpus = 2
+memory_mb = 4096
+storage_mb = 20480
+roles = ["postgresql"]
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 300

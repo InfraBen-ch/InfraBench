@@ -1,0 +1,33 @@
+schema_version = "1.1"
+
+[task]
+name = "syscraft/cassandra-node-hung-recovery"
+description = "A Cassandra cluster node's OS has hung (kernel panic). IPMI shows it powered on but SSH is unreachable. Force-reboot the hung node and restore the full 3-node cluster."
+keywords = ["cassandra", "bare-metal", "ipmi", "kernel-panic", "hung-node", "power-cycle"]
+
+[metadata]
+difficulty = "hard"
+tags = ["cassandra", "bare-metal", "ipmi", "distributed-systems", "sre"]
+
+[verifier]
+timeout_sec = 180.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+type = "cloudlab"
+build_timeout_sec = 1800.0
+
+[[environment.nodes]]
+name = "node0"
+host = "node0.example.invalid"
+roles = ["primary"]
+
+[[environment.nodes]]
+name = "node1"
+host = "node1.example.invalid"
+
+[[environment.nodes]]
+name = "node2"
+host = "node2.example.invalid"

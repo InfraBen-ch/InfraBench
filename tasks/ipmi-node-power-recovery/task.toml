@@ -20,13 +20,13 @@ type = "cloudlab"
 
 [[environment.nodes]]
 name = "node0"
-host = "c220g1-031125.wisc.cloudlab.us"
+host = "node0.example.invalid"
 roles = ["primary"]
 
 [[environment.nodes]]
 name = "node1"
-host = "c220g1-031116.wisc.cloudlab.us"
+host = "node1.example.invalid"
 
 [[environment.nodes]]
 name = "node2"
-host = "c220g1-031105.wisc.cloudlab.us"
+host = "node2.example.invalid"

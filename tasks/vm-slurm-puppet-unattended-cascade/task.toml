@@ -1,0 +1,90 @@
+[task]
+name = "example/vm-slurm-puppet-unattended-cascade"
+version = "0.1.0"
+
+[metadata]
+author_name = "Syscraft Team"
+author_organization = "University of Wisconsin - Madison"
+
+difficulty = "hard"
+difficulty_explanation = """\
+A research SLURM cluster passes shallow health checks - sinfo is green and a \
+single srun hostname returns - but concurrent job submissions intermittently \
+fail because (a) a Puppet-enforced slurm.conf caps MaxJobCount/MaxStepCount \
+absurdly low and (b) a systemd drop-in starves slurmd's own cgroup so it OOMs \
+under sustained load. A half-completed unattended-upgrades run also left \
+.dpkg-dist files behind. Any in-place fix is reverted within minutes by the \
+local puppet-apply cron, and a reboot re-applies the drop-in. Agents must \
+repair the Puppet manifest itself, merge the .dpkg-dist residue, and prove \
+stability across a forced puppet apply and a reboot.\
+"""
+
+solution_explanation = """\
+The reference recovery rewrites the Puppet manifest so the enforced slurm.conf \
+has realistic MaxJobCount/MaxStepCount and node specs, removes the slurmd \
+cgroup drop-in via Puppet (ensure => absent), merges /etc/slurm/*.dpkg-dist \
+into the live configs, daemon-reloads, and restarts slurmctld + slurmd on all \
+nodes. Puppet apply and node reboots both leave the cluster healthy under a \
+six-step concurrent srun workload.\
+"""
+
+verification_explanation = """\
+Binary reward. The verifier checks munge/slurmctld/slurmd health, sinfo state, \
+a 6-way concurrent srun workload, then forces puppet apply on every node and \
+reboots the compute nodes - re-running the workload after each event. It also \
+checks that puppet timers/cron and unattended-upgrades are still enabled \
+(no bypass), no .dpkg-dist files remain, and slurmd is not masked. It emits \
+a scored partial over the 11 repair-progress checks that nop fails: the three \
+workload checks, three MaxJobCount checks, two slurmd cgroup checks, and three \
+.dpkg-dist cleanup checks.\
+"""
+
+category = "systems_administration"
+tags = [
+    "slurm",
+    "puppet",
+    "configuration-management",
+    "unattended-upgrades",
+    "cgroup",
+    "configuration-drift",
+    "restart-persistence",
+    "long-term",
+    "distributed-systems",
+    "vm-cluster",
+    "linux",
+    "debugging",
+]
+expert_time_estimate_hours = 1.5
+
+[environment]
+type = "vm-cluster"
+vm_backend = "libvirt"
+base_image = "ubuntu-24.04"
+network = "192.168.100.0/24"
+
+[[environment.nodes]]
+name = "node0"
+cpus = 2
+memory_mb = 3072
+storage_mb = 16384
+roles = ["slurmctld", "puppet"]
+
+[[environment.nodes]]
+name = "node1"
+cpus = 2
+memory_mb = 3072
+storage_mb = 16384
+roles = ["slurmd"]
+
+[[environment.nodes]]
+name = "node2"
+cpus = 2
+memory_mb = 3072
+storage_mb = 16384
+roles = ["slurmd"]
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600

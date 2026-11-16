@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "task": "ceph-pool-degraded",
+    "format": "pytest",
+    "formula": "w = (1 - pass_rate) + eps",
+    "eps": 0.1,
+    "generated_from": "runs/_3pass_index/check_stats.json",
+    "note": "id keys: pytest=test fn, dict=check key, list=s<i> (i-th scored check), points=p<i> (i-th judge item). Weights are relative; partial = sum(w*passed)/sum(w) over these checks."
+  },
+  "checks": {
+    "test_health_ok": {
+      "weight": 0.1323,
+      "pass_rate": 0.9677,
+      "n": 31,
+      "label": "test_health_ok"
+    },
+    "test_pgs_active_clean": {
+      "weight": 0.1,
+      "pass_rate": 1.0,
+      "n": 31,
+      "label": "test_pgs_active_clean"
+    },
+    "test_osd2_in_node1": {
+      "weight": 0.1323,
+      "pass_rate": 0.9677,
+      "n": 31,
+      "label": "test_osd2_in_node1"
+    },
+    "test_osd2_device_class_hdd": {
+      "weight": 0.1645,
+      "pass_rate": 0.9355,
+      "n": 31,
+      "label": "test_osd2_device_class_hdd"
+    },
+    "test_osd1_device_class_archive": {
+      "weight": 0.1,
+      "pass_rate": 1.0,
+      "n": 31,
+      "label": "test_osd1_device_class_archive"
+    },
+    "test_recovery_flags_cleared": {
+      "weight": 0.1323,
+      "pass_rate": 0.9677,
+      "n": 31,
+      "label": "test_recovery_flags_cleared"
+    },
+    "test_osd2_no_recovery_sleep_override": {
+      "weight": 0.7452,
+      "pass_rate": 0.3548,
+      "n": 31,
+      "label": "test_osd2_no_recovery_sleep_override"
+    },
+    "test_data_integrity": {
+      "weight": 0.1,
+      "pass_rate": 1.0,
+      "n": 31,
+      "label": "test_data_integrity"
+    }
+  }
+}

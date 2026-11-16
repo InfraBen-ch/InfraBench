@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# Runs as root on node0 (primary). Configures IPMI on all nodes and powers off node1.
+# Runs as root on node0 (primary). Uses the provisioned IPMI account and powers off node1.
 
 set -euo pipefail
 
-IPMI_USER="elabman"
-IPMI_PASS="Test1234"
-IPMI_USER_ID=2
+# Provision this file outside the task tree with owner root and mode 0600.
+source /etc/syscraft/ipmi-credentials.env
+: "${IPMI_USER:?Missing IPMI_USER}" "${IPMI_PASSWORD:?Missing IPMI_PASSWORD}"
+export IPMI_PASSWORD
 
 SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=15 -o BatchMode=yes"
 
@@ -20,33 +21,7 @@ if [ -z "$NODE1_HOST" ] || [ -z "$NODE2_HOST" ]; then
     exit 1
 fi
 
-configure_bmc_local() {
-    apt-get install -y -q ipmitool 2>/dev/null | tail -1 || true
-    ipmitool lan set 1 auth CALLBACK PASSWORD 2>/dev/null || true
-    ipmitool lan set 1 auth USER     PASSWORD 2>/dev/null || true
-    ipmitool lan set 1 auth OPERATOR PASSWORD 2>/dev/null || true
-    ipmitool lan set 1 auth ADMIN    PASSWORD 2>/dev/null || true
-    ipmitool user set password "${IPMI_USER_ID}" "${IPMI_PASS}" 2>/dev/null || true
-    echo "BMC configured on $(hostname)"
-}
-
-export -f configure_bmc_local
-export IPMI_USER_ID IPMI_PASS
-
-echo "=== Installing ipmitool and configuring BMC on all nodes ==="
-configure_bmc_local
-
-for host in "$NODE1_HOST" "$NODE2_HOST"; do
-    ssh $SSH_OPTS "root@$host" \
-        "apt-get install -y -q ipmitool 2>/dev/null | tail -1 || true
-         ipmitool lan set 1 auth CALLBACK PASSWORD 2>/dev/null || true
-         ipmitool lan set 1 auth USER     PASSWORD 2>/dev/null || true
-         ipmitool lan set 1 auth OPERATOR PASSWORD 2>/dev/null || true
-         ipmitool lan set 1 auth ADMIN    PASSWORD 2>/dev/null || true
-         ipmitool user set password ${IPMI_USER_ID} '${IPMI_PASS}' 2>/dev/null || true
-         echo done on \$(hostname)" &
-done
-wait
+apt-get install -y -q ipmitool
 
 NODE0_BMC="$(syscraft_discover_bmc_ip)"
 NODE1_BMC="$(syscraft_remote_discover_bmc_ip "$NODE1_HOST" "$SSH_OPTS")"
@@ -73,15 +48,15 @@ EOF
 echo "=== Verifying IPMI access to all BMCs ==="
 for bmc in "$NODE0_BMC" "$NODE1_BMC" "$NODE2_BMC"; do
   if [ -n "$bmc" ]; then
-    STATUS=$(ipmitool -I lan -H "$bmc" -U "$IPMI_USER" -P "$IPMI_PASS" chassis power status 2>/dev/null || echo "error")
+    STATUS=$(ipmitool -I lan -H "$bmc" -U "$IPMI_USER" -E chassis power status 2>/dev/null || echo "error")
     echo "  $bmc: $STATUS"
   fi
 done
 
 echo "=== FAULT INJECTION: powering off node1 via IPMI ==="
-ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -P "$IPMI_PASS" chassis power off
+ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E chassis power off
 sleep 5
 
-STATUS=$(ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -P "$IPMI_PASS" chassis power status 2>/dev/null)
+STATUS=$(ipmitool -I lan -H "$NODE1_BMC" -U "$IPMI_USER" -E chassis power status 2>/dev/null)
 echo "node1 BMC reports: $STATUS"
 echo "=== Bootstrap complete. node1 is powered off. ==="
